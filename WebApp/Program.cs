@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Sadvo.Persistence.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnections");
+builder.Services.AddDbContext<AppElectionsContext>(opt => opt.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
