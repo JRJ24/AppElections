@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Sadvo.Persistence.Context;
+using Sadvo.IOC.Dependancies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,16 @@ builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnections");
 builder.Services.AddDbContext<AppElectionsContext>(opt => opt.UseSqlServer(connectionString));
+
+builder.Services.AddCandidatosDependancy();
+builder.Services.AddAliancePoliticalDependancy();
+builder.Services.AddPoliticalLeaderDependancy();
+builder.Services.AddPartyPoliticalDependancy();
+builder.Services.AddElectivePositionsDependancy();
+builder.Services.AddCitizensDepedancy();
+builder.Services.AddRolesDependancy();
+builder.Services.AddRolUserDependancy();
+builder.Services.AddUsersDependancy();
 
 var app = builder.Build();
 

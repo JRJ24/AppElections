@@ -12,14 +12,24 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
             builder.ToTable(nameof(PoliticalLeader));
             builder.HasKey(p => p.Id);
 
+
             builder.Property(p => p.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
             builder.Property(p => p.userName)
                 .IsRequired()
                 .HasMaxLength(100);
+
+            builder.Property(p => p.ElectionID)
+                .IsRequired();
+
             builder.Property(p => p.siglasPartyPolitical)
                 .IsRequired();
+
+            builder.Property(p => p.isActive)
+                .IsRequired()
+                .HasColumnType("bit")
+                .HasDefaultValue(true);
         }
     }
 }

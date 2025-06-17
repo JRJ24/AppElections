@@ -15,5 +15,9 @@ namespace Sadvo.Domain.Entities.ElectionsVotes
 
         public ICollection<ElectivePositions>? electivePosition { get; set; }
         public ICollection<PartyPolitical>? partyPoliticals { get; set; }
+        public ICollection<Candidatos>? candidatos { get; set; }
+        public ICollection<PoliticalLeader>? politicalLeaders { get; set; }
+
+        public ICollection<Votes>? votes { get; set; }
     }
 }

@@ -44,8 +44,29 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .HasConstraintName("FK_ELECTIONSPOSITIONSELECTIONS")
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(c => c.candidatos)
+                .WithOne(e => e.election)
+                .HasForeignKey(c => c.ElectionID)
+                .HasConstraintName("FK_CandidatosElection")
+                .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(p => p.partyPoliticals)
+                .WithOne(e => e.election)
+                .HasForeignKey(p => p.ElectionID)
+                .HasConstraintName("FK_PartyPoliticalsElection")
+                .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(p => p.politicalLeaders)
+                .WithOne(e => e.election)
+                .HasForeignKey(p => p.ElectionID)
+                .HasConstraintName("FK_PoliticalLeadersElection")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(v => v.votes)
+                .WithOne(e => e.election)
+                .HasForeignKey(v => v.ElectionID)
+                .HasConstraintName("FK_VotesElection")
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

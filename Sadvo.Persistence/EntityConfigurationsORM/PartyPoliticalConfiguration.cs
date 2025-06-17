@@ -36,6 +36,8 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .IsRequired()
                 .HasMaxLength(10);
 
+            builder.Property(p => p.ElectionID)
+                .IsRequired();
 
 
             builder.HasOne(p => p.leader)

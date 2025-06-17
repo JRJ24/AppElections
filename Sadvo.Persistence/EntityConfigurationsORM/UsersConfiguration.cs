@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sadvo.Domain.Entities.Configuration;
+using Sadvo.Domain.Entities.ElectionsVotes.Citizen;
 using Sadvo.Domain.Entities.Security;
 
 namespace Sadvo.Persistence.EntityConfigurationsORM
@@ -49,6 +50,13 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .HasForeignKey<PoliticalLeader>(pl => pl.userName)
                 .HasConstraintName("FK_USERNAME_POLITICAL_LEADERS")
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(c => c.citizens)
+                .WithOne(u => u.users)
+                .HasPrincipalKey<Users>(u => u.userName)
+                .HasForeignKey<Citizens>(c => c.userName)
+                .HasConstraintName("FK_USERNAME_CITIZENS")
+                .OnDelete(DeleteBehavior.NoAction);
             #endregion
 
         }

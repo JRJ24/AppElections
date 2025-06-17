@@ -30,7 +30,9 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .HasColumnType("bit")
                 .HasDefaultValue(true);
 
-     
+
+
+
         }
     }
 }

@@ -81,6 +81,9 @@ namespace Sadvo.Persistence.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Description");
 
+                    b.Property<int>("ElectionID")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -119,6 +122,8 @@ namespace Sadvo.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ElectionID");
 
                     b.HasIndex("electivePositionId");
 
@@ -173,7 +178,7 @@ namespace Sadvo.Persistence.Migrations
                         .HasMaxLength(2147483647)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ElectionId")
+                    b.Property<int>("ElectionID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -193,7 +198,7 @@ namespace Sadvo.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ElectionId");
+                    b.HasIndex("ElectionID");
 
                     b.HasIndex("siglasPartyPolitical")
                         .IsUnique();
@@ -209,6 +214,14 @@ namespace Sadvo.Persistence.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("ElectionID")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("siglasPartyPolitical")
                         .IsRequired()
                         .HasColumnType("nvarchar(10)");
@@ -219,6 +232,8 @@ namespace Sadvo.Persistence.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ElectionID");
 
                     b.HasIndex("siglasPartyPolitical")
                         .IsUnique();
@@ -236,6 +251,9 @@ namespace Sadvo.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("ElectionID")
+                        .HasColumnType("int");
 
                     b.Property<int>("VoteNumber")
                         .HasColumnType("int");
@@ -268,6 +286,8 @@ namespace Sadvo.Persistence.Migrations
 
                     b.HasAlternateKey("siglasPartyPolitical")
                         .HasName("UQ_SIGLASPARTYPOLITICAL");
+
+                    b.HasIndex("ElectionID");
 
                     b.ToTable("Votes", (string)null);
                 });
@@ -309,12 +329,19 @@ namespace Sadvo.Persistence.Migrations
                         .HasMaxLength(11)
                         .HasColumnType("nvarchar(11)");
 
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("email")
                         .IsUnique();
 
                     b.HasIndex("numberIdentity")
+                        .IsUnique();
+
+                    b.HasIndex("userName")
                         .IsUnique();
 
                     b.ToTable("Citizens", (string)null);
@@ -486,6 +513,13 @@ namespace Sadvo.Persistence.Migrations
 
             modelBuilder.Entity("Sadvo.Domain.Entities.Configuration.Candidatos", b =>
                 {
+                    b.HasOne("Sadvo.Domain.Entities.ElectionsVotes.Election", "election")
+                        .WithMany("candidatos")
+                        .HasForeignKey("ElectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CandidatosElection");
+
                     b.HasOne("Sadvo.Domain.Entities.Configuration.ElectivePositions", "electivePosition")
                         .WithMany("Candidatos")
                         .HasForeignKey("electivePositionId");
@@ -497,6 +531,8 @@ namespace Sadvo.Persistence.Migrations
                     b.HasOne("Sadvo.Domain.Entities.Elections.Votes", "votes")
                         .WithMany("candidatos")
                         .HasForeignKey("votesID");
+
+                    b.Navigation("election");
 
                     b.Navigation("electivePosition");
 
@@ -521,7 +557,10 @@ namespace Sadvo.Persistence.Migrations
                 {
                     b.HasOne("Sadvo.Domain.Entities.ElectionsVotes.Election", "election")
                         .WithMany("partyPoliticals")
-                        .HasForeignKey("ElectionId");
+                        .HasForeignKey("ElectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_PartyPoliticalsElection");
 
                     b.HasOne("Sadvo.Domain.Entities.Elections.Votes", "votes")
                         .WithMany("partyPoliticals")
@@ -538,6 +577,13 @@ namespace Sadvo.Persistence.Migrations
 
             modelBuilder.Entity("Sadvo.Domain.Entities.Configuration.PoliticalLeader", b =>
                 {
+                    b.HasOne("Sadvo.Domain.Entities.ElectionsVotes.Election", "election")
+                        .WithMany("politicalLeaders")
+                        .HasForeignKey("ElectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_PoliticalLeadersElection");
+
                     b.HasOne("Sadvo.Domain.Entities.Configuration.PartyPolitical", "partyPolitical")
                         .WithOne("leader")
                         .HasForeignKey("Sadvo.Domain.Entities.Configuration.PoliticalLeader", "siglasPartyPolitical")
@@ -553,9 +599,23 @@ namespace Sadvo.Persistence.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_USERNAME_POLITICAL_LEADERS");
 
+                    b.Navigation("election");
+
                     b.Navigation("partyPolitical");
 
                     b.Navigation("user");
+                });
+
+            modelBuilder.Entity("Sadvo.Domain.Entities.Elections.Votes", b =>
+                {
+                    b.HasOne("Sadvo.Domain.Entities.ElectionsVotes.Election", "election")
+                        .WithMany("votes")
+                        .HasForeignKey("ElectionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_VotesElection");
+
+                    b.Navigation("election");
                 });
 
             modelBuilder.Entity("Sadvo.Domain.Entities.ElectionsVotes.Citizen.Citizens", b =>
@@ -567,6 +627,16 @@ namespace Sadvo.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_CITIZENDSID");
+
+                    b.HasOne("Sadvo.Domain.Entities.Security.Users", "users")
+                        .WithOne("citizens")
+                        .HasForeignKey("Sadvo.Domain.Entities.ElectionsVotes.Citizen.Citizens", "userName")
+                        .HasPrincipalKey("Sadvo.Domain.Entities.Security.Users", "userName")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_USERNAME_CITIZENS");
+
+                    b.Navigation("users");
 
                     b.Navigation("votes");
                 });
@@ -611,9 +681,15 @@ namespace Sadvo.Persistence.Migrations
 
             modelBuilder.Entity("Sadvo.Domain.Entities.ElectionsVotes.Election", b =>
                 {
+                    b.Navigation("candidatos");
+
                     b.Navigation("electivePosition");
 
                     b.Navigation("partyPoliticals");
+
+                    b.Navigation("politicalLeaders");
+
+                    b.Navigation("votes");
                 });
 
             modelBuilder.Entity("Sadvo.Domain.Entities.Security.RolUsers", b =>
@@ -625,6 +701,8 @@ namespace Sadvo.Persistence.Migrations
 
             modelBuilder.Entity("Sadvo.Domain.Entities.Security.Users", b =>
                 {
+                    b.Navigation("citizens");
+
                     b.Navigation("politicalLeaders");
                 });
 #pragma warning restore 612, 618

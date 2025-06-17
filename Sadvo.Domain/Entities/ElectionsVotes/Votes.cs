@@ -16,10 +16,13 @@ namespace Sadvo.Domain.Entities.Elections
         public required string citizensName { get; set; }
         public required string siglasPartyPolitical { get; set; }
         public required string candidatosName { get; set; }
+        public int ElectionID { get; set; }
+
 
         // Navigations
         public Citizens? citizens {  get; set; }
         public ICollection<PartyPolitical>? partyPoliticals { get; set; }
         public ICollection<Candidatos>? candidatos { get; set; }
+        public Election? election { get; set; }
     }
 }

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -15,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sadvo.Application\Sadvo.Application.csproj" />
+    <ProjectReference Include="..\Sadvo.Domain\Sadvo.Domain.csproj" />
+    <ProjectReference Include="..\Sadvo.IOC\Sadvo.IOC.csproj" />
+    <ProjectReference Include="..\Sadvo.Model\Sadvo.Model.csproj" />
     <ProjectReference Include="..\Sadvo.Persistence\Sadvo.Persistence.csproj" />
   </ItemGroup>
 

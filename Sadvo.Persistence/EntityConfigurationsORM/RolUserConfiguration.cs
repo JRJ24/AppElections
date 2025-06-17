@@ -28,9 +28,9 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
 
             builder.HasMany<Roles>(r => r.role)
                 .WithOne(ru => ru.rolUser)
-                .HasPrincipalKey(r => r.rolName)
+                .HasPrincipalKey(ru => ru.rolName)
                 .HasForeignKey(r => r.Name)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Sadvo.Persistence.Base
             Entity = _context.Set<TEntity>();
         }
 
-        public virtual async Task<OperationResult> DeleteEntityById(TEntity entity)
+        public virtual async Task<OperationResult> DeleteEntityAsync(TEntity entity)
         {
             if (entity == null) return OperationResult.GetErrorResult("", code: 400);
             try
@@ -59,7 +59,7 @@ namespace Sadvo.Persistence.Base
             }
         }
 
-        public async Task<TEntity> GetEntityByIDAsync(int id)
+        public virtual async Task<TEntity> GetEntityByIDAsync(int id)
         {
             if (Entity == null)
             {
@@ -75,7 +75,7 @@ namespace Sadvo.Persistence.Base
             return entity;
         }
 
-        public async Task<OperationResult> SaveEntityById(TEntity entity)
+        public virtual async Task<OperationResult> SaveEntityAsync(TEntity entity)
         {
             try
             {
@@ -88,7 +88,7 @@ namespace Sadvo.Persistence.Base
             }
         }
 
-        public async Task<OperationResult> UpdateEntityById(TEntity entity)
+        public virtual async Task<OperationResult> UpdateEntityAsync(TEntity entity)
         {
             if (entity == null) return OperationResult.GetErrorResult("", code: 400);
             try

@@ -28,6 +28,9 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .HasMaxLength(50)
                 .HasColumnName("Foto");
 
+            builder.Property(x => x.ElectionID)
+                .IsRequired();
+
             builder.Property(x => x.isAssocciate)
                 .IsRequired()
                 .HasColumnType("bit")

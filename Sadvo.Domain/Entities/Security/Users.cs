@@ -1,5 +1,6 @@
 ﻿using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
+using Sadvo.Domain.Entities.ElectionsVotes.Citizen;
 
 namespace Sadvo.Domain.Entities.Security
 {
@@ -11,5 +12,6 @@ namespace Sadvo.Domain.Entities.Security
         public required string password { get; set; }
 
         public PoliticalLeader? politicalLeaders { get; set; }
+        public Citizens? citizens { get; set; }
     }
 }
