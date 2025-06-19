@@ -11,6 +11,8 @@ namespace Sadvo.Domain.Entities.ElectionsVotes
         public DateTime? dateElections { get; set; }
         public int cantPartyPolitical { get; set; }
         public int cantElectivePositions { get; set; }
+        public int cantCandidatos { get; set; }
+        public int yearElections { get; set; }
         public bool isActiveElection { get; set; }
 
         public ICollection<ElectivePositions>? electivePosition { get; set; }

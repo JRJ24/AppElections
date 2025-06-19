@@ -6,8 +6,7 @@ namespace Sadvo.Application.DTOs.RolUsers
     {    
         public int Id { get; set; }
         public int userId { get; set; }
-        public required string userName { get; set; }
-        public string? rolName { get; set; }
+        public int rolID { get; set; }
         public bool isActive { get; set; }
     }
 }

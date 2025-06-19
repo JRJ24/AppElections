@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Sadvo.Domain.Entities.Configuration;
 using Sadvo.Domain.Entities.Elections;
 using Sadvo.Domain.Entities.ElectionsVotes.Citizen;
+using Sadvo.Domain.Entities.Security;
 
 namespace Sadvo.Persistence.EntityConfigurationsORM
 {
@@ -14,46 +15,35 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
         {
             builder.ToTable(nameof(Votes));
             builder.HasKey(v => v.ID);
-            builder.HasAlternateKey(v => v.VoteNumber)
-                .HasName("UQ_VOTENUMBER");
-            builder.HasAlternateKey(v => v.citizensID)
-                .HasName("UQ_CitizensID");
-            builder.HasAlternateKey(v => v.siglasPartyPolitical)
-             .HasName("UQ_SIGLASPARTYPOLITICAL");
 
             builder.Property(v => v.ID)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
 
-            builder.Property(v => v.VoteNumber)
-                .IsRequired();
-
             builder.Property(v => v.citizensID)
                 .IsRequired();
-
-            builder.Property(v => v.citizensName)
-                .IsRequired()
-                .HasMaxLength(50);
 
             builder.Property(v => v.siglasPartyPolitical)
                 .IsRequired()
                 .HasMaxLength(10);
 
-            builder.Property(v => v.candidatosName)
+            builder.Property(v => v.candidatosID)
+                .IsRequired();
+
+            builder.Property(v => v.isActiveVote)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasColumnType("bit")
+                .HasDefaultValue(true);
 
-            builder.HasOne(c => c.citizens)
-                .WithOne(v => v.votes)
-                .HasPrincipalKey<Votes>(v => v.citizensID)
-                .HasForeignKey<Citizens>(c => c.Id)
+            builder.HasOne(v => v.citizens)
+                .WithMany(c => c.votes)
+                .HasForeignKey(v => v.citizensID)
                 .HasConstraintName("FK_CITIZENDSID");
-
-            builder.HasMany<PartyPolitical>(pl => pl.partyPoliticals)
-                .WithOne(v => v.votes)
-                .HasPrincipalKey(v => v.siglasPartyPolitical)
-                .HasForeignKey(pl => pl.siglasPartyPolitical)
-                .HasConstraintName("FK_SIGLASPARTYPOLITICAL");
+            
+            builder.HasOne(v => v.candidatos)
+                .WithMany(c => c.votes)
+                .HasForeignKey(v  => v.candidatosID)
+                .HasConstraintName("FK_CandidatosID");
 
 
         }

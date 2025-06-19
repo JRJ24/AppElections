@@ -32,6 +32,11 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
             builder.Property(e => e.cantPartyPolitical)
                 .IsRequired();
 
+            builder.Property(e => e.cantCandidatos)
+               .IsRequired();
+
+            builder.Property(e => e.yearElections)
+                .IsRequired();
 
             builder.Property(e => e.isActiveElection)
                 .IsRequired()
@@ -48,7 +53,7 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .WithOne(e => e.election)
                 .HasForeignKey(c => c.ElectionID)
                 .HasConstraintName("FK_CandidatosElection")
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(p => p.partyPoliticals)
                 .WithOne(e => e.election)
@@ -60,13 +65,13 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .WithOne(e => e.election)
                 .HasForeignKey(p => p.ElectionID)
                 .HasConstraintName("FK_PoliticalLeadersElection")
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasMany(v => v.votes)
                 .WithOne(e => e.election)
                 .HasForeignKey(v => v.ElectionID)
                 .HasConstraintName("FK_VotesElection")
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

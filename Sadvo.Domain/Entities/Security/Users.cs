@@ -13,5 +13,6 @@ namespace Sadvo.Domain.Entities.Security
 
         public PoliticalLeader? politicalLeaders { get; set; }
         public Citizens? citizens { get; set; }
+        public ICollection<RolUsers>? rolUsers {  get; set; }
     }
 }

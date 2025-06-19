@@ -12,7 +12,8 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
         {
             builder.ToTable(nameof(PartyPolitical));
             builder.HasKey(p => p.Id);
-            builder.HasAlternateKey(p => p.siglasPartyPolitical);
+            builder.HasAlternateKey(p => p.siglasPartyPolitical)
+                .HasName("UQ_SiglasPartyPolitical");
             builder.HasIndex(p => p.siglasPartyPolitical)
                 .IsUnique();
 

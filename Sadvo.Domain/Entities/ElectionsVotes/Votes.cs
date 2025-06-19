@@ -10,19 +10,17 @@ namespace Sadvo.Domain.Entities.Elections
     {
         // PK
         public required int ID { get; set; }
-        public required int VoteNumber { get; set; }
         // FK
         public required int citizensID { get; set; }
-        public required string citizensName { get; set; }
         public required string siglasPartyPolitical { get; set; }
-        public required string candidatosName { get; set; }
+        public required int candidatosID { get; set; }
         public int ElectionID { get; set; }
-
+        public required bool isActiveVote { get; set; }
 
         // Navigations
         public Citizens? citizens {  get; set; }
-        public ICollection<PartyPolitical>? partyPoliticals { get; set; }
-        public ICollection<Candidatos>? candidatos { get; set; }
+        public PartyPolitical? partyPoliticals { get; set; }
+        public Candidatos? candidatos { get; set; }
         public Election? election { get; set; }
     }
 }

@@ -4,15 +4,16 @@ using Sadvo.Domain.Entities.Security;
 
 namespace Sadvo.Domain.Entities.ElectionsVotes.Citizen
 {
-    public class Citizens : Audit
+    public class Citizens 
     {
-        public required string userName {  get; set; }  
-        public required string lastname { get; set; }
-        public required string email { get; set; }
+        public required int Id { get; set; }
+        public required string userName { get; set; }
         public required string numberIdentity { get; set; }
         public required bool isVoted { get; set; }
+        public string? Description { get; set; }
+        public required bool isActive { get; set; }
 
-        public Votes? votes { get; set; }
+        public ICollection<Votes>? votes { get; set; }
         public Users? users { get; set; }
     }
 }

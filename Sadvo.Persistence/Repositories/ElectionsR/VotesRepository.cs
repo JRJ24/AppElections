@@ -1,5 +1,4 @@
-﻿
-
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Elections;
@@ -7,6 +6,7 @@ using Sadvo.Domain.Entities.ElectionsVotes;
 using Sadvo.Persistence.Base;
 using Sadvo.Persistence.Context;
 using Sadvo.Persistence.InterfacesRepositories.IElections;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Sadvo.Persistence.Repositories.ElectionsR
 {
@@ -21,7 +21,7 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
             _logger = logger;
         }
 
-       /* public override async Task<OperationResult> DeleteEntityAsync(Votes entity)
+        public override async Task<OperationResult> DeleteEntityAsync(Votes entity)
         {
             if (entity is null) return OperationResult.GetErrorResult("", code: 404);
             try
@@ -29,7 +29,7 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
                 var result = await base.GetEntityByIDAsync(entity.ID);
                 if (result is null) return OperationResult.GetErrorResult("", code: 404);
 
-                result. = false;
+                result.isActiveVote = false;
 
                 var resultDelete = await UpdateEntityAsync(result);
                 if (!resultDelete.success) return OperationResult.GetErrorResult("", code: 500);
@@ -38,10 +38,10 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
             }
             catch (Exception ex)
             {
-                _logger.LogError("");
+                _logger.LogError($"VotesRepository.DeleteEntityAsync {ex.ToString()}");
                 return OperationResult.GetErrorResult("", code: 500);
             }
-        } */
+        } 
         public override async Task<OperationResult> SaveEntityAsync(Votes entity)
         {
             return await base.SaveEntityAsync(entity);
@@ -55,7 +55,7 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
             }
             catch (Exception ex)
             {
-                _logger.LogError("");
+                _logger.LogError($"VotesRepository.GetEntityByIDAsync {ex.ToString()}"); 
                 return null;
             }
         }
@@ -63,5 +63,7 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
         {
             return await base.UpdateEntityAsync(entity);
         }
+
+       
     }
 }

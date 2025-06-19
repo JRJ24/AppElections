@@ -14,23 +14,16 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
             builder.HasKey(x => x.Id);
             builder.HasIndex(x => x.numberIdentity)
                 .IsUnique();
-            builder.HasIndex(x => x.email)
+            builder.HasIndex(x => x.userName)
                 .IsUnique();
 
-            builder.Property(x => x.Name)
-                .IsRequired()
-                .HasMaxLength(50);
-
-            builder.Property(x => x.lastname)
-                .IsRequired()
-                .HasMaxLength(100);
+            builder.Property(x => x.userName)
+               .IsRequired()
+               .HasMaxLength(100);
 
             builder.Property(x => x.numberIdentity)
                 .IsRequired()
                 .HasMaxLength(11);
-
-            builder.Property(x => x.email)
-                .IsRequired();
 
             builder.Property(x => x.isVoted)
                 .IsRequired()

@@ -12,6 +12,8 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
         {
             builder.ToTable(nameof(Candidatos));
             builder.HasKey(x => x.Id);
+            builder.HasAlternateKey(x => new { x.Name, x.lastname })
+                .HasName("AK_Users_Name_LastName");
 
             builder.Property(x => x.Name)
                 .IsRequired()

@@ -8,6 +8,7 @@ namespace Sadvo.Application.DTOs.PartyPolitical
         public required string Name { get; set; }
         public string? Description { get; set; }
         public required string siglasPartyPolitical { get; set; }
+        public required string? logoTypePartyPolitical { get; set; }
         public int ElectionID { get; set; }
         public required bool isActive { get; set; }
 

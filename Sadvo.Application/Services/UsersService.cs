@@ -6,6 +6,7 @@ using Sadvo.Application.Interfaces;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Security;
 using Sadvo.Persistence.InterfacesRepositories.ISecurity;
+using Sadvo.Utils.Helpers;
 
 
 namespace Sadvo.Application.Services
@@ -81,8 +82,12 @@ namespace Sadvo.Application.Services
         {
             try
             {
+                var existingUser = await _repository.VerifyUserName(dto.userName);
+                if (existingUser.success) return OperationResult.GetErrorResult("Usuario ya existe", code: 400);
+
                 var entity = _mapper.Map<Users>(dto);
                 entity.isActive = true;
+                entity.password = PasswordEncrypted.ComputeSha256Hash(dto.password);
                 var entitySave = await _repository.SaveEntityAsync(entity);
                 if (!entitySave.success) throw new Exception();
 
@@ -100,6 +105,7 @@ namespace Sadvo.Application.Services
             try
             {
                 var entity = _mapper.Map<Users>(dto);
+                entity.password = PasswordEncrypted.ComputeSha256Hash(dto.password);
                 var entityUpdate = await _repository.UpdateEntityAsync(entity);
                 if (!entityUpdate.success) throw new Exception();
 
@@ -111,6 +117,26 @@ namespace Sadvo.Application.Services
                 _logger.LogError($"UsersService.UpdateById: {ex.ToString()}");
                 return OperationResult.GetErrorResult("Error", code: 500);
             }
+        }
+
+        public async Task<OperationResult> UserLogin(LoginDTO dto)
+        {
+            try
+            {
+                Users users = await _repository.LoginAsync(dto.userName, dto.password);
+                if(users == null) return OperationResult.GetErrorResult("", code:404);
+
+                var userDTO = _mapper.Map<UsersDTO>(users);
+                return OperationResult.GetSuccesResult(userDTO, code: 200);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"UsersService.UserLogin: {ex.ToString()}");
+                return OperationResult.GetErrorResult("Error", code: 500);
+            }
+
+
         }
     }
 }

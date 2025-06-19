@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
@@ -62,6 +63,33 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
         public override async Task<OperationResult> UpdateEntityAsync(Election entity)
         {
             return await base.UpdateEntityAsync(entity);
+        }
+
+        public async Task<OperationResult> GetEntityByYearAsync(int year)
+        {
+            if (year == 0) return OperationResult.GetErrorResult("Year no valido", code: 400);
+
+            try
+            {
+                var query = await (from Election in _context.elections
+                                   where Election.yearElections == year && Election.isActiveElection != false
+                                   select new Election()
+                                   {
+                                       ElectionId = Election.ElectionId,
+                                       nameElections = Election.nameElections,
+                                       dateElections = Election.dateElections,
+                                       cantPartyPolitical = Election.cantPartyPolitical,
+                                       cantElectivePositions = Election.cantElectivePositions,
+                                       cantCandidatos = Election.cantCandidatos,
+                                   }).ToListAsync();
+                if (query.Count == 0) return OperationResult.GetErrorResult("No Election in this year", code: 404);
+
+                return OperationResult.GetSuccesResult(query.First(), code: 200);
+            }catch(Exception ex)
+            {
+                _logger.LogError($"ElectionRepository.GetEntityByYearAsync {ex.ToString()}");
+                return OperationResult.GetErrorResult("", code: 500);
+            }
         }
     }
 }

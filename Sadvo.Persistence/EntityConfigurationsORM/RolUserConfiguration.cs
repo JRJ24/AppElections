@@ -12,25 +12,30 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
         {
             builder.ToTable(nameof(RolUsers));
             builder.HasKey(r => r.Id);
-            builder.HasAlternateKey(r => r.rolName);
 
             builder.Property(r => r.Id)
                 .IsRequired()
                 .ValueGeneratedOnAdd();
             builder.Property(r => r.userId)
                 .IsRequired();
-            builder.Property(r => r.rolName)
-                .IsRequired();
-            builder.Property(r => r.userName)
+            builder.Property(r => r.rolID)
                 .IsRequired();
             builder.Property(r => r.isActive)
                 .IsRequired();
 
-            builder.HasMany<Roles>(r => r.role)
-                .WithOne(ru => ru.rolUser)
-                .HasPrincipalKey(ru => ru.rolName)
-                .HasForeignKey(r => r.Name)
-                .OnDelete(DeleteBehavior.Cascade); 
+
+            builder.HasOne(r => r.user)
+                 .WithMany(u => u.rolUsers)
+                 .HasForeignKey(r => r.userId)
+                 .HasConstraintName("FK_UserID_Users");
+
+            builder.HasOne(r => r.role)
+                 .WithMany(r => r.rolUsers)
+                 .HasForeignKey(r => r.rolID)
+                 .HasConstraintName("FK_RolID_Roles");
+
+
         }
     }
 }
+

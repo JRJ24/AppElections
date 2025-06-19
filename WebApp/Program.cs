@@ -19,6 +19,7 @@ builder.Services.AddCitizensDepedancy();
 builder.Services.AddRolesDependancy();
 builder.Services.AddRolUserDependancy();
 builder.Services.AddUsersDependancy();
+builder.Services.AddAutoMapperDependancy();
 
 var app = builder.Build();
 
@@ -38,9 +39,9 @@ app.UseAuthorization();
 app.MapStaticAssets();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    name: "admin",
+    pattern: "{action=AdminIndex}/{id?}",
+    defaults: new { area = "Admin", controller = "HomeAdmin" });
 
 
 app.Run();

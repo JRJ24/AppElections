@@ -1,5 +1,6 @@
 ﻿
 
+using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Elections;
 using Sadvo.Domain.IBaseRepository;
 

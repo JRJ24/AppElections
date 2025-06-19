@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sadvo.Domain\Sadvo.Domain.csproj" />
+    <ProjectReference Include="..\Utils\Sadvo.Utils.csproj" />
   </ItemGroup>
 
 </Project>

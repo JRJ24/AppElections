@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -21,6 +21,13 @@
     <ProjectReference Include="..\Sadvo.IOC\Sadvo.IOC.csproj" />
     <ProjectReference Include="..\Sadvo.Model\Sadvo.Model.csproj" />
     <ProjectReference Include="..\Sadvo.Persistence\Sadvo.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Elector\Views\HomeElector\" />
+    <Folder Include="Areas\Login\Shared\" />
+    <Folder Include="Areas\Login\Views\" />
+    <Folder Include="Areas\PoliticalLeader\Views\HomePoliticalLeader\" />
   </ItemGroup>
 
 </Project>
