@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.Candidatos;
 using Sadvo.Application.DTOs.Citizens;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.Citizens;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
 using Sadvo.Domain.Entities.ElectionsVotes.Citizen;
@@ -52,7 +53,8 @@ namespace Sadvo.Application.Services
             {
                 var citizens = await _repository.GetAllAsync();
                 var citizensDTOs = _mapper.Map<IEnumerable<CitizensDTO>>(citizens);
-                return OperationResult.GetSuccesResult(citizensDTOs, code: 200);
+                var citizensViewModels = _mapper.Map<IEnumerable<CitizensViewModel>>(citizensDTOs);
+                return OperationResult.GetSuccesResult(citizensViewModels, code: 200);
 
             }
             catch (Exception ex)
@@ -86,6 +88,7 @@ namespace Sadvo.Application.Services
             {
                 var entity = _mapper.Map<Citizens>(dto);
                 entity.isActive = true;
+                entity.isVoted = false;
                 var entitySave = await _repository.SaveEntityAsync(entity);
                 if (!entitySave.success) throw new Exception();
 

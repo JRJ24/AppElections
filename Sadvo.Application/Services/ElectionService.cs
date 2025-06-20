@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.Election;
 using Sadvo.Application.DTOs.PartyPolitical;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.Election;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
 using Sadvo.Domain.Entities.ElectionsVotes;
@@ -51,7 +52,8 @@ namespace Sadvo.Application.Services
             {
                 var entity = await _repository.GetAllAsync();
                 var entitiesDTO = _mapper.Map<IEnumerable<ElectionDTO>>(entity);
-                return OperationResult.GetSuccesResult(entitiesDTO, code: 200);
+                var entitiesViewModel = _mapper.Map<IEnumerable<ElectionViewModel>>(entitiesDTO);
+                return OperationResult.GetSuccesResult(entitiesViewModel, code: 200);
 
             }
             catch (Exception ex)
@@ -88,7 +90,8 @@ namespace Sadvo.Application.Services
                 if (entity == null) return OperationResult.GetErrorResult("", code: 404);
 
                 var entitiesYears = _mapper.Map<ElectionDTO>(entity);
-                return OperationResult.GetSuccesResult(entitiesYears, code: 200);
+                var entitiesViewModel = _mapper.Map<ElectionViewModel>(entitiesYears);
+                return OperationResult.GetSuccesResult(entitiesViewModel, code: 200);
             }
             catch (Exception ex)
             {
@@ -102,7 +105,7 @@ namespace Sadvo.Application.Services
             try
             {
                 var entity = _mapper.Map<Election>(dto);
-                entity.isActiveElection = true;
+                entity.isActiveElection = false;
                 var entitySave = await _repository.SaveEntityAsync(entity);
                 if (!entitySave.success) throw new Exception();
 

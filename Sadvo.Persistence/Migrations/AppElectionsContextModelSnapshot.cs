@@ -93,12 +93,6 @@ namespace Sadvo.Persistence.Migrations
                     b.Property<int?>("electivePositionId")
                         .HasColumnType("int");
 
-                    b.Property<string>("foto")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Foto");
-
                     b.Property<bool>("isActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
@@ -188,9 +182,6 @@ namespace Sadvo.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
-
-                    b.Property<string>("logoTypePartyPolitical")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("siglasPartyPolitical")
                         .IsRequired()
@@ -340,15 +331,6 @@ namespace Sadvo.Persistence.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ElectionId"));
-
-                    b.Property<int>("cantCandidatos")
-                        .HasColumnType("int");
-
-                    b.Property<int>("cantElectivePositions")
-                        .HasColumnType("int");
-
-                    b.Property<int>("cantPartyPolitical")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("dateElections")
                         .HasColumnType("datetime2");

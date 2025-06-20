@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Sadvo.Application.ViewModels.Citizens.CitizensViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAd";
+
+}
+<link rel="stylesheet" href="~/css/bodyIndex.css" />
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-container">
+    <table class="table table-modern">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.userName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isVoted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.isActive)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.userName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isVoted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

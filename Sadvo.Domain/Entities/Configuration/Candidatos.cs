@@ -7,7 +7,7 @@ namespace Sadvo.Domain.Entities.Configuration
     public class Candidatos : Audit
     {
         public required string lastname { get; set; }
-        public required string foto { get; set; }
+        // public required string foto { get; set; }
         public required bool isAssocciate { get; set; }
         public int ElectionID { get; set; }
 

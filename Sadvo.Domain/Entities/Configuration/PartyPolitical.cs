@@ -8,7 +8,7 @@ namespace Sadvo.Domain.Entities.Configuration
     public class PartyPolitical : Audit
     {
         public required string siglasPartyPolitical { get; set; }
-        public required string? logoTypePartyPolitical { get; set; }
+       // public required string? logoTypePartyPolitical { get; set; }
         public int ElectionID { get; set; }
 
 

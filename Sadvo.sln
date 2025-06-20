@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sadvo.WebApp", "WebApp\Sadvo.WebApp.csproj", "{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sadvo.Domain", "Sadvo.Domain\Sadvo.Domain.csproj", "{F23EB7A3-5123-4310-B0ED-312650253B05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sadvo.Persistence", "Sadvo.Persistence\Sadvo.Persistence.csproj", "{F34E94B6-1EF3-4744-89B3-410131D15E9D}"
@@ -29,16 +27,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{10920530
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sadvo.Utils", "Utils\Sadvo.Utils.csproj", "{76CD5F42-6D1B-48F0-A46E-41EDF5B418B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebElectionApp", "WebElectionApp\WebElectionApp.csproj", "{0888C543-54FA-4618-96C1-DD2627D7CE53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F23EB7A3-5123-4310-B0ED-312650253B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F23EB7A3-5123-4310-B0ED-312650253B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23EB7A3-5123-4310-B0ED-312650253B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,18 +59,22 @@ Global
 		{76CD5F42-6D1B-48F0-A46E-41EDF5B418B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CD5F42-6D1B-48F0-A46E-41EDF5B418B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CD5F42-6D1B-48F0-A46E-41EDF5B418B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0888C543-54FA-4618-96C1-DD2627D7CE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0888C543-54FA-4618-96C1-DD2627D7CE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0888C543-54FA-4618-96C1-DD2627D7CE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0888C543-54FA-4618-96C1-DD2627D7CE53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B97D5BF7-3DEA-4A8B-92D7-EE41DDC6F2A4} = {F82CED25-91D2-41B8-8075-253AF733E43A}
 		{F23EB7A3-5123-4310-B0ED-312650253B05} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{F34E94B6-1EF3-4744-89B3-410131D15E9D} = {447B7DBA-C22F-43DE-8D04-A3BB488BAD3F}
 		{ABA048F8-982A-4784-96F2-7BED74D45DA2} = {C19A6913-BFBD-41D7-9409-B1193CC73822}
 		{726E8B4F-AE0B-4021-A90D-144F724DDFC7} = {F2EF6547-58AD-421F-978D-B50B2E54675E}
 		{82A699DA-D809-4B5E-9F38-839CB7A46042} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{76CD5F42-6D1B-48F0-A46E-41EDF5B418B4} = {10920530-38BE-4BB0-AE8C-FEE2F6AD2D10}
+		{0888C543-54FA-4618-96C1-DD2627D7CE53} = {F82CED25-91D2-41B8-8075-253AF733E43A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {61B5C7E9-0246-4097-AC29-DE638434486C}

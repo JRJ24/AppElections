@@ -2,9 +2,11 @@
 using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.PartyPolitical;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.PartyPolitical;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
 using Sadvo.Persistence.InterfacesRepositories.IConfiguration;
+using System.Web.Mvc;
 
 
 namespace Sadvo.Application.Services
@@ -48,7 +50,8 @@ namespace Sadvo.Application.Services
             {
                 var entity = await _repository.GetAllAsync();
                 var entitiesDTO = _mapper.Map<IEnumerable<PartyPoliticalDTO>>(entity);
-                return OperationResult.GetSuccesResult(entitiesDTO, code: 200);
+                var politicalPartiesViewModel = _mapper.Map<IEnumerable<PartyPoliticalViewModels>>(entitiesDTO);
+                return OperationResult.GetSuccesResult(politicalPartiesViewModel, code: 200);
 
             }
             catch (Exception ex)
@@ -78,6 +81,7 @@ namespace Sadvo.Application.Services
 
         public async Task<OperationResult> Save(SavePartyPoliticalDTO dto)
         {
+
             try
             {
                 var entity = _mapper.Map<PartyPolitical>(dto);

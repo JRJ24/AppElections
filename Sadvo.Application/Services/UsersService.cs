@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.Roles;
 using Sadvo.Application.DTOs.Users;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.Users;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Security;
 using Sadvo.Persistence.InterfacesRepositories.ISecurity;
@@ -50,7 +51,8 @@ namespace Sadvo.Application.Services
             {
                 var entity = await _repository.GetAllAsync();
                 var entitiesDTO = _mapper.Map<IEnumerable<UsersDTO>>(entity);
-                return OperationResult.GetSuccesResult(entitiesDTO, code: 200);
+                var viewModels = _mapper.Map<IEnumerable<UsersViewModel>>(entitiesDTO);
+                return OperationResult.GetSuccesResult(viewModels, code: 200);
 
             }
             catch (Exception ex)
@@ -69,7 +71,8 @@ namespace Sadvo.Application.Services
                 if (entity == null) return OperationResult.GetErrorResult("", code: 404);
 
                 var entitiesID = _mapper.Map<UsersDTO>(entity);
-                return OperationResult.GetSuccesResult(entitiesID, code: 200);
+                var viewModelsID = _mapper.Map<IEnumerable<UsersViewModel>>(entitiesID);
+                return OperationResult.GetSuccesResult(viewModelsID, code: 200);
             }
             catch (Exception ex)
             {
@@ -119,24 +122,33 @@ namespace Sadvo.Application.Services
             }
         }
 
-        public async Task<OperationResult> UserLogin(LoginDTO dto)
+        public async Task<OperationResult> UserLogin(LoginUserViewModel loginVM)
         {
             try
             {
-                Users users = await _repository.LoginAsync(dto.userName, dto.password);
-                if(users == null) return OperationResult.GetErrorResult("", code:404);
+                if(loginVM == null) return OperationResult.GetErrorResult("Login data is null", code: 400);
+                if(string.IsNullOrWhiteSpace(loginVM.userName) || string.IsNullOrWhiteSpace(loginVM.password))
+                    return OperationResult.GetErrorResult("Username or password cannot be empty", code: 400);
+
+                var loginDTO = _mapper.Map<LoginDTO>(loginVM);
+               
+                Users users = await _repository.LoginAsync(loginDTO.userName, loginDTO.password);
+
+                if (users == null || !users.isActive)
+                {
+                    return OperationResult.GetErrorResult("Invalid username or password", code: 401);
+                }
 
                 var userDTO = _mapper.Map<UsersDTO>(users);
                 return OperationResult.GetSuccesResult(userDTO, code: 200);
-
             }
             catch (Exception ex)
             {
                 _logger.LogError($"UsersService.UserLogin: {ex.ToString()}");
                 return OperationResult.GetErrorResult("Error", code: 500);
             }
-
-
         }
+
+
     }
 }

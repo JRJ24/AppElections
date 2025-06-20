@@ -1,0 +1,49 @@
+﻿@model Sadvo.Application.ViewModels.Users.LoginUserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/login.css" />
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2><i class="fas fa-user-circle me-2"></i>Bienvenido</h2>
+            <p>Inicia sesión en tu cuenta</p>
+        </div>
+
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="validation-summary text-danger"></div>
+
+            <div class="form-floating">
+                <input asp-for="userName" class="form-control" id="userName" placeholder="Usuario" />
+                <label for="userName"><i class="fas fa-user me-2"></i>Nombre de usuario</label>
+                <span asp-validation-for="userName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating">
+                <input asp-for="password" type="password" class="form-control" id="password" placeholder="Contraseña" />
+                <label for="password"><i class="fas fa-lock me-2"></i>Contraseña</label>
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-login">
+                <i class="fas fa-sign-in-alt me-2"></i>Iniciar Sesión
+            </button>
+
+            <div class="forgot-password">
+                <a href="#"><i class="fas fa-key me-1"></i>¿Olvidaste tu contraseña?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- <div>
+    <a asp-action="Index">Back to List</a>
+</div> -->
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}

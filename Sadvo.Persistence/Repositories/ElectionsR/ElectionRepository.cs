@@ -78,9 +78,8 @@ namespace Sadvo.Persistence.Repositories.ElectionsR
                                        ElectionId = Election.ElectionId,
                                        nameElections = Election.nameElections,
                                        dateElections = Election.dateElections,
-                                       cantPartyPolitical = Election.cantPartyPolitical,
-                                       cantElectivePositions = Election.cantElectivePositions,
-                                       cantCandidatos = Election.cantCandidatos,
+                                       yearElections = Election.yearElections,
+                                       isActiveElection = Election.isActiveElection
                                    }).ToListAsync();
                 if (query.Count == 0) return OperationResult.GetErrorResult("No Election in this year", code: 404);
 

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.Roles;
 using Sadvo.Application.DTOs.RolUsers;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.RolUser;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Security;
 using Sadvo.Persistence.InterfacesRepositories.ISecurity;
@@ -50,7 +51,8 @@ namespace Sadvo.Application.Services
             {
                 var entity = await _repository.GetAllAsync();
                 var entitiesDTO = _mapper.Map<IEnumerable<RolUsersDTO>>(entity);
-                return OperationResult.GetSuccesResult(entitiesDTO, code: 200);
+                var entitesViewModel = _mapper.Map<IEnumerable<RolUserViewModel>>(entitiesDTO);
+                return OperationResult.GetSuccesResult(entitesViewModel, code: 200);
 
             }
             catch (Exception ex)

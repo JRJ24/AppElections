@@ -26,14 +26,14 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
             builder.Property(e => e.dateElections)
                 .IsRequired();
 
-            builder.Property(e => e.cantElectivePositions)
+           /* builder.Property(e => e.cantElectivePositions)
                 .IsRequired();
 
             builder.Property(e => e.cantPartyPolitical)
                 .IsRequired();
 
             builder.Property(e => e.cantCandidatos)
-               .IsRequired();
+               .IsRequired(); */
 
             builder.Property(e => e.yearElections)
                 .IsRequired();

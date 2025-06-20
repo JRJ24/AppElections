@@ -4,6 +4,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Sadvo.Application.DTOs.ElectivePositions;
 using Sadvo.Application.Interfaces;
+using Sadvo.Application.ViewModels.ElectivePositions;
 using Sadvo.Domain.BaseCommon;
 using Sadvo.Domain.Entities.Configuration;
 using Sadvo.Persistence.InterfacesRepositories.IConfiguration;
@@ -49,7 +50,8 @@ namespace Sadvo.Application.Services
             {
                 var entity = await _repository.GetAllAsync();
                 var entitiesDTO = _mapper.Map<IEnumerable<ElectivePositionsDTO>>(entity);
-                return OperationResult.GetSuccesResult(entitiesDTO, code: 200);
+                var entitiesViewModels = _mapper.Map<IEnumerable<ElectivePositionsViewModel>>(entitiesDTO);
+                return OperationResult.GetSuccesResult(entitiesViewModels, code: 200);
 
             }
             catch (Exception ex)

@@ -25,10 +25,7 @@ namespace Sadvo.Persistence.EntityConfigurationsORM
                 .HasMaxLength(100)
                 .HasColumnName("LastName");
 
-            builder.Property(x => x.foto)
-                .IsRequired()
-                .HasMaxLength(50)
-                .HasColumnName("Foto");
+    
 
             builder.Property(x => x.ElectionID)
                 .IsRequired();

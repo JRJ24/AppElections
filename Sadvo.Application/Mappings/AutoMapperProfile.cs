@@ -11,6 +11,7 @@ using Sadvo.Application.DTOs.Users;
 using Sadvo.Application.DTOs.Votes;
 using Sadvo.Application.ViewModels.Candidatos;
 using Sadvo.Application.ViewModels.Citizens;
+using Sadvo.Application.ViewModels.Election;
 using Sadvo.Application.ViewModels.ElectivePositions;
 using Sadvo.Application.ViewModels.PartyPolitical;
 using Sadvo.Application.ViewModels.PoliticalLeader;
@@ -94,6 +95,8 @@ namespace Sadvo.Application.Mappings
             CreateMap<Election, SaveElectionDTO>().ReverseMap();
             CreateMap<Election, UpdateElectionDTO>().ReverseMap();
             CreateMap<Election, DeleteElectionDTO>().ReverseMap();
+            CreateMap<ElectionDTO, ElectionViewModel>()
+                .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.isActiveElection ? "Activo" : "Inactivo"));
 
             //ElectivePositions Mappings
             CreateMap<ElectivePositions, ElectivePositionsDTO>().ReverseMap();
@@ -129,7 +132,11 @@ namespace Sadvo.Application.Mappings
             CreateMap<RolUsers, DeleteRolUsersDTO>().ReverseMap();
 
             CreateMap<RolUsersDTO, RolUserViewModel>()
-                .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.isActive ? "Activo" : "Inactivo"));
+                .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.isActive ? "Activo" : "Inactivo"))
+                .ForMember(dest => dest.rol, opt => opt.MapFrom(src =>
+                            src.rolID == 1 ? "Admin" :
+                            src.rolID == 2 ? "PoliticalLeader" :
+                            src.rolID == 3 ? "Elector" : ""));
 
             CreateMap<SaveRolUsersDTO, CreateRolUserViewModel>().ReverseMap();
             CreateMap<UpdateRolUsersDTO, UpdateRolUserViewModel>().ReverseMap();

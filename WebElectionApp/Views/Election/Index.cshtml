@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Sadvo.Application.ViewModels.Election.ElectionViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAd"; 
+}
+
+<link rel="stylesheet" href="~/css/bodyIndex.css" />
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="table-container">
+    <table class="table table-modern">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ElectionId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nameElections)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dateElections)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ElectionId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nameElections)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateElections)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
